@@ -34,6 +34,9 @@ function get_own_site_url() {
 	if (! array_key_exists('option_value', $row))
 		return false;
 
+	mysqli_free_result($result);
+	mysqli_close($sql);
+
 	return $row['option_value'];
 }
 
