@@ -82,7 +82,8 @@ function main() {
 		exit(0);
 	}
 
-	$cmd = sprintf("php srdb.cli.php -h %s -u %s -p %s -n %s -s %s -r %s",
+	$cmd = sprintf("php %s/srdb.cli.php -h %s -u %s -p %s -n %s -s %s -r %s",
+		dirname(__FILE__),
 		escapeshellarg(DB_HOST),
 		escapeshellarg(DB_USER),
 		escapeshellarg(DB_PASSWORD),
