@@ -6,6 +6,37 @@ function usage() {
 	exit;
 }
 
+function valid_wp() {
+	if (
+		! defined('DB_HOST') ||
+		! defined('DB_USER') ||
+		! defined('DB_PASSWORD') ||
+		! defined('DB_NAME')
+	)
+		return false;
+
+	return true;
+}
+
+function get_own_site_url() {
+	global $table_prefix;
+
+	$sql = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+	if (! $sql) 
+		return false;
+
+	$query = sprintf('SELECT option_value FROM %soptions WHERE option_name = "siteurl"', $table_prefix);
+	$result = mysqli_query($sql, $query);
+	if (! $result)
+		return false;
+
+	$row = mysqli_fetch_assoc($result);
+	if (! array_key_exists('option_value', $row))
+		return false;
+
+	return $row['option_value'];
+}
+
 function main() {
 
 	if ($_SERVER['argc'] < 2)
@@ -24,14 +55,13 @@ function main() {
 
 	//Include config.
 	require_once $fp;
-
-	if (! function_exists('get_site_url')) {
+	if (! valid_wp()) {
 		print("The wp-config.php file specified is not valid.");
 		exit(1);
 	}
 
 	//Get site url.
-	$site_url = get_site_url();
+	$site_url = get_own_site_url();
 	if (! $site_url) {
 		print("Could not determine siteurl.\n");
 		exit(1);
