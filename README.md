@@ -4,6 +4,31 @@ This script was made to aid the process of migrating PHP and MySQL based website
 
 If you find a problem let us know in the issues area and if you can improve the code then please fork the repository and send us a pull request :)
 
+## Automated additions
+
+This fork contains `wp-replace.php`, which will automatically choose many options
+for WordPress installations.
+
+Install it by
+
+```bash
+git clone https://github.com/isdampe/Search-Replace-DB.git
+sudo ln -s /path/to/Search-Replace-DB/wp-replace.php /usr/bin/wp-replace
+```
+
+And then, execute in a WordPress base directory
+
+```bash
+wp-replace $PWD
+```
+
+Or from anywhere
+
+```bash
+wp-replace /path/to/wordpress
+```
+
+
 ## Warnings & Limitations
 
 1. Three character UTF8 seems to break in certain cases.
